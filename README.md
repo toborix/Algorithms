@@ -12,7 +12,8 @@
     - [Insertion sort](https://en.wikipedia.org/wiki/Insertion_sort)
     - [Selection sort](https://en.wikipedia.org/wiki/Selection_sort)
 
-- **Sub-quadratic time sorting algorithms**
+- **Sub-quadratic time sorting algorithms** ( :warning: Describing an algorithm that runs in __greater__ than a _liner_ but __less__ than _quadratic_ time)
+    
   - [Merge sort](https://en.wikipedia.org/wiki/Merge_sort)
 
 
