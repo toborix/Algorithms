@@ -1,46 +1,51 @@
 package LearnAlgorithms.SortAlgorithms.MergeSort;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MergeSort {
 
     public static List<Integer> mergeSort(List<Integer> list) {
         if (list.size() <= 1) return list;
-        List<Integer> left = list.subList(0, list.size() / 2);
-        List<Integer> right = list.subList(list.size() / 2, list.size());
+        List<Integer> left = new ArrayList<>(list.subList(0, list.size() / 2));
+        List<Integer> right = new ArrayList<>(list.subList(list.size() / 2, list.size()));
         return merge(mergeSort(left), mergeSort(right));
     }
 
     public static List<Integer> merge(List<Integer> left, List<Integer> right) {
-        int leftIndex = 0;
-        int rightIndex = 0;
-        int listIndex = 0;
+        int leftIndex = 0; // index of first sub-array
+        int rightIndex = 0; // index of second sub-array
+        int listIndex = 0; // index of merged sub-array
+
+        List<Integer> mergedList = new ArrayList<>(left.size() + right.size());
+
         // compare left and right lists, add the smaller value to the list
         while (leftIndex < left.size() && rightIndex < right.size()) {
             if (left.get(leftIndex) < right.get(rightIndex)) {
-                left.set(listIndex, left.get(leftIndex));
+                mergedList.add(left.get(leftIndex));
                 leftIndex++;
             } else {
-                left.set(listIndex, right.get(rightIndex));
+                mergedList.add(right.get(rightIndex));
                 rightIndex++;
             }
             listIndex++;
         }
+
         // add the rest of the list to the end of the list
-        List<Integer> rest;
-        int restIndex;
-        if (leftIndex >= left.size()) {
-            rest = right;
-            restIndex = rightIndex;
-        } else {
-            rest = left;
-            restIndex = leftIndex;
-        }
-        for (int i = restIndex; i < rest.size(); i++) {
-            rest.set(listIndex, rest.get(i));
+        while (leftIndex < left.size()) {
+            mergedList.add(left.get(leftIndex));
+            leftIndex++;
             listIndex++;
         }
-        return rest;
+
+        while (rightIndex < right.size()) {
+            mergedList.add(right.get(rightIndex));
+            rightIndex++;
+            listIndex++;
+        }
+
+        return mergedList;
     }
 
     public static void main(String[] args) {
@@ -50,15 +55,30 @@ public class MergeSort {
         List<Integer> list = List.of(5, 4, 1, 8, 7, 2, 6, 3);
         List<Integer> sortedList = mergeSort(list);
 
-        // Printing the expected and corresponding actual product
-        System.out.println("Expected 1 : " + List.of(1, 2, 3, 4, 5, 6, 7, 8));
-        System.out.println("Actual 1 : " + sortedList + "\n\n");
+        List <Integer> list2 = List.of(1,7,2,6,3);
+        List <Integer> sortedList2 = mergeSort(list2);
 
-        assert (sortedList.equals(List.of(1, 2, 3, 4, 5, 6, 7, 8)));
+
+
+        if (sortedList.equals(List.of(1, 2, 3, 4, 5, 6, 7, 8))) {
+            System.out.println("Test 1 passed");
+
+        } else {
+            throw new AssertionError( "Expected 1 : " + List.of(1, 2, 3, 4, 5, 6, 7, 8) + "\n" +
+                    "Actual 1 : " + sortedList + "\n\n");
+        }
+
+        if (sortedList2.equals(List.of(1, 2, 3, 6, 7))) {
+            System.out.println("Test 2 passed");
+
+        } else {
+            throw new AssertionError( "Expected 2 : " + List.of(1, 2, 3, 6, 7) + "\n" +
+                    "Actual 2 : " + sortedList2 + "\n\n");
+        }
+
+
 
 
 
     }
-
-
 }
